@@ -21,24 +21,30 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-   
+
     const sportCollection = client.db("sport-storeDB").collection("store");
 
-    app.post('/equipment', async(req, res) => {
-        const data = req.body;
-        const result = await sportCollection.insertOne(data);
-        res.send(result);
+    app.post('/equipment', async (req, res) => {
+      const data = req.body;
+      const result = await sportCollection.insertOne(data);
+      res.send(result);
     })
 
-    app.get('/equipment', async(req, res) => {
-        const cursor = sportCollection.find();
-        const result = await cursor.toArray();
-        res.send(result);
+    app.get('/equipment', async (req, res) => {
+      const cursor = sportCollection.find().limit(6);
+      const result = await cursor.toArray();
+      res.send(result);
     });
 
-    app.get('/equipment/:id', async(req, res) => {
+    app.get('/allequipment', async (req, res) => {
+      const cursor = sportCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
+    app.get('/equipment/:id', async (req, res) => {
       const id = req.params.id;
-      const query = {_id : new ObjectId(id)}
+      const query = { _id: new ObjectId(id) }
       const result = await sportCollection.findOne(query);
       res.send(result);
     })
@@ -53,10 +59,10 @@ run().catch(console.dir);
 
 
 app.get('/', async (req, res) => {
-res.send("Server is Running");
+  res.send("Server is Running");
 });
 
-app.listen(port, ()=> {
-    console.log(`Server Runngin on Port ${port}`)
+app.listen(port, () => {
+  console.log(`Server Runngin on Port ${port}`)
 })
 
