@@ -24,7 +24,7 @@ async function run() {
    
     const sportCollection = client.db("sport-storeDB").collection("store");
 
-   /*  app.post('/equipment', async(req, res) => {
+    app.post('/equipment', async(req, res) => {
         const data = req.body;
         const result = await sportCollection.insertOne(data);
         res.send(result);
@@ -34,7 +34,7 @@ async function run() {
         const cursor = sportCollection.find();
         const result = await cursor.toArray();
         res.send(result);
-    }) */
+    })
 
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
