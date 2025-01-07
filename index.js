@@ -7,8 +7,9 @@ const port = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use(cors());
+const uri = `mongodb+srv://${process.env.USER_DB}:${process.env.USER_PASS}@cluster0.w0iow.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
-const uri = `mongodb+srv://${process.env.USER_DB}:${process.env.USER_PASS}@cluster0.jqnby.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+/* const uri = `mongodb+srv://${process.env.USER_DB}:${process.env.USER_PASS}@cluster0.jqnby.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`; */
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -31,7 +32,7 @@ async function run() {
     })
 
     app.get('/equipment', async (req, res) => {
-      const cursor = sportCollection.find().limit(6);
+      const cursor = sportCollection.find().limit(8);
       const result = await cursor.toArray();
       res.send(result);
     });
